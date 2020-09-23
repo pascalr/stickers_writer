@@ -20,18 +20,39 @@ const char* OUT_FILE_NAME = "out.bmp";
 
 const int DPI = 300; // Dots per inch (pixels per inch)
 
+//const char* FONT_NAME = "fonts/monospace/MonospaceBold.ttf";
+//const char* FONT_NAME = "fonts/monospace/Monospace.ttf";
+//const char* FONT_NAME = "fonts/cmu/cmunorm.ttf";
+//const char* FONT_NAME = "fonts/Courier Prime/Courier Prime Bold.ttf";
+//const char* FONT_NAME = "fonts/Courier Prime/Courier Prime.ttf";
+//const char* FONT_NAME = "fonts/Courier Prime Sans/Courier Prime Sans Bold.ttf";
+//const char* FONT_NAME = "fonts/Courier Prime Sans/Courier Prime Sans.ttf";
+//const char* FONT_NAME = "fonts/droid-sans-mono/DroidSansMono.ttf";
 const char* FONT_NAME = "fonts/LiberationMono-Regular.ttf";
 //const char* FONT_NAME = "fonts/LiberationMono-Bold.ttf";
 const int FONT_SIZE = 64;
+//const int TEXT_Y_OFFSET = 4;
 
 const double SPACE_BETWEEN_STICKERS = 4; // mm
 const double OUTER_DIA = 36; // mm
 const double INNER_DIA = 32; // mm
+const double STICKER_WIDTH = OUTER_DIA + SPACE_BETWEEN_STICKERS; // mm
+
 const double MARKER_DIA = 4.4; // mm
-const double MARKERS_INTERSPACE = 16.3; // mm
-const double MARKERS_DIST_FROM_MIDDLE = 9.6; // mm
+const double MARKERS_INTERSPACE = 16.5; // mm
+const double MARKERS_DIST_FROM_MIDDLE = 9.3; // mm
+
 const double CHAR_HEIGHT = 4; // mm
-const double STICKER_WIDTH = OUTER_DIA + SPACE_BETWEEN_STICKERS;
+
+const double LINE_1_WIDTH = 25; // mm
+const double LINE_2_WIDTH = 25; // mm
+const double LINE_3_WIDTH = 15; // mm
+
+const double TEXT_LINE_OFFSET = -1.5; // mm
+const double LINE_INTERSPACE = 6.8; // mm
+//const double LINE_1_HEIGHT = 1; // mm
+//const double LINE_2_HEIGHT = -6; // mm
+//const double LINE_3_HEIGHT = -13; // mm
 
 int mmToPx(double mm, int dpi=DPI) {
   return round(mm*dpi/25.4);
@@ -173,14 +194,20 @@ public:
   	SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
     drawCircle(gRenderer, centerX+mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
     drawCircle(gRenderer, centerX-mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
-  
-  	//Render text
+  	
+    //Render text
     int x = centerX - (width / 2);
     int y = centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE) - (height / 2) + (FONT_SIZE/16);
   	SDL_Rect renderQuad = { x, y, width, height };
   	SDL_RenderCopy( gRenderer, texture, NULL, &renderQuad );
-    
-    SDL_SaveBMP(textSurface, "text.bmp");
+
+    int textY = y + height + mmToPx(TEXT_LINE_OFFSET);
+
+    // Draw lines
+    //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(8), textY, centerX+mmToPx(8), textY);
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_1_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*1), centerX+mmToPx(LINE_1_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*1));
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_2_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*2), centerX+mmToPx(LINE_2_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*2));
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_3_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*3), centerX+mmToPx(LINE_3_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*3));
     
     //free();
   }
@@ -263,7 +290,7 @@ int main( int argc, char* args[] )
     //Update screen
   	SDL_RenderPresent( gRenderer );
 
-    SDL_Delay( 2000 );
+    SDL_Delay( 5000 );
 	
     //SDL_Surface* screenSurface = SDL_GetWindowSurface( gWindow );
     //SDL_SaveBMP(screenSurface, OUT_FILE_NAME);
