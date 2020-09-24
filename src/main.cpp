@@ -14,7 +14,7 @@ and may not be redistributed without written permission.*/
 
 #include "hrcode_constants.h"
 
-int mmToPx(double mm, int dpi=DPI) {
+int mmToPx(double mm, int dpi=HRCODE_DPI) {
   return round(mm*dpi/25.4);
 }
 
@@ -146,28 +146,28 @@ public:
   			
     // Draw contour  
   	SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
-    drawCircle(gRenderer, centerX, centerY, mmToPx(OUTER_DIA/2.0));
+    drawCircle(gRenderer, centerX, centerY, mmToPx(HRCODE_OUTER_DIA/2.0));
   	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-    drawCircle(gRenderer, centerX, centerY, mmToPx(INNER_DIA/2.0));
+    drawCircle(gRenderer, centerX, centerY, mmToPx(HRCODE_INNER_DIA/2.0));
   
     // Draw markers
   	SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
-    drawCircle(gRenderer, centerX+mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
-    drawCircle(gRenderer, centerX-mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
+    drawCircle(gRenderer, centerX+mmToPx(HRCODE_MARKERS_INTERSPACE/2.0), centerY-mmToPx(HRCODE_MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(HRCODE_MARKER_DIA/2.0));
+    drawCircle(gRenderer, centerX-mmToPx(HRCODE_MARKERS_INTERSPACE/2.0), centerY-mmToPx(HRCODE_MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(HRCODE_MARKER_DIA/2.0));
   	
     //Render text
     int x = centerX - (width / 2);
-    int y = centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE) - (height / 2) + (FONT_SIZE/16);
+    int y = centerY-mmToPx(HRCODE_MARKERS_DIST_Y_FROM_MIDDLE) - (height / 2) + (HRCODE_FONT_SIZE/16);
   	SDL_Rect renderQuad = { x, y, width, height };
   	SDL_RenderCopy( gRenderer, texture, NULL, &renderQuad );
 
-    int textY = y + height + mmToPx(TEXT_LINE_OFFSET);
+    int textY = y + height + mmToPx(HRCODE_TEXT_LINE_OFFSET);
 
     // Draw lines
     //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(8), textY, centerX+mmToPx(8), textY);
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_1_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*1), centerX+mmToPx(LINE_1_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*1));
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_2_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*2), centerX+mmToPx(LINE_2_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*2));
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(LINE_3_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*3), centerX+mmToPx(LINE_3_WIDTH/2.0), textY+mmToPx(LINE_INTERSPACE*3));
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1), centerX+mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1));
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2), centerX+mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2));
+    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3), centerX+mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3));
     
     //free();
   }
@@ -214,7 +214,7 @@ bool init(int screenWidth, int screenHeight) {
 		printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() ); return false;
 	}
 
-  gFont = TTF_OpenFont( FONT_NAME, FONT_SIZE );
+  gFont = TTF_OpenFont( HRCODE_FONT_NAME, HRCODE_FONT_SIZE );
   if ( gFont == NULL ) {
     printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() ); return false;
   }
@@ -224,8 +224,8 @@ bool init(int screenWidth, int screenHeight) {
 
 int main( int argc, char* args[] )
 {
-  int windowWidth = mmToPx(STICKER_WIDTH * NB_COLS);
-  int windowHeight = mmToPx(STICKER_WIDTH * NB_ROWS);
+  int windowWidth = mmToPx(HRCODE_STICKER_WIDTH * HRCODE_NB_COLS);
+  int windowHeight = mmToPx(HRCODE_STICKER_WIDTH * HRCODE_NB_ROWS);
 
   std::vector<Sticker> stickers;
 
@@ -236,10 +236,10 @@ int main( int argc, char* args[] )
 	  SDL_RenderClear( gRenderer );
 
     int id = 1;
-    for (int i = 0; i < NB_COLS; i++) {
-      for (int j = 0; j < NB_ROWS; j++) {
-        int centerX = mmToPx(i * STICKER_WIDTH + (STICKER_WIDTH / 2.0));
-        int centerY = mmToPx(j * STICKER_WIDTH + (STICKER_WIDTH / 2.0));
+    for (int i = 0; i < HRCODE_NB_COLS; i++) {
+      for (int j = 0; j < HRCODE_NB_ROWS; j++) {
+        int centerX = mmToPx(i * HRCODE_STICKER_WIDTH + (HRCODE_STICKER_WIDTH / 2.0));
+        int centerY = mmToPx(j * HRCODE_STICKER_WIDTH + (HRCODE_STICKER_WIDTH / 2.0));
         Sticker sticker(id);
         sticker.draw(centerX, centerY);
         stickers.push_back(sticker);
@@ -254,7 +254,7 @@ int main( int argc, char* args[] )
 	
     //SDL_Surface* screenSurface = SDL_GetWindowSurface( gWindow );
     //SDL_SaveBMP(screenSurface, OUT_FILE_NAME);
-    saveScreenshotBMP(OUT_FILE_NAME);
+    saveScreenshotBMP(HRCODE_OUT_FILE_NAME);
 
     for (Sticker& sticker : stickers) {
       sticker.free(); // Not sure this is necesary because already done in destructor. I thought maybe it must be done before SDL_Quit. Anyway it does not hurt.
