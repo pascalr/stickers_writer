@@ -152,12 +152,12 @@ public:
   
     // Draw markers
   	SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0x00, 0xFF );
-    drawCircle(gRenderer, centerX+mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
-    drawCircle(gRenderer, centerX-mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
+    drawCircle(gRenderer, centerX+mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
+    drawCircle(gRenderer, centerX-mmToPx(MARKERS_INTERSPACE/2.0), centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE), mmToPx(MARKER_DIA/2.0));
   	
     //Render text
     int x = centerX - (width / 2);
-    int y = centerY-mmToPx(MARKERS_DIST_FROM_MIDDLE) - (height / 2) + (FONT_SIZE/16);
+    int y = centerY-mmToPx(MARKERS_DIST_Y_FROM_MIDDLE) - (height / 2) + (FONT_SIZE/16);
   	SDL_Rect renderQuad = { x, y, width, height };
   	SDL_RenderCopy( gRenderer, texture, NULL, &renderQuad );
 
