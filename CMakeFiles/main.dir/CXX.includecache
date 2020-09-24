@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/home/pascalr/stickers_writer/src/hrcode_constants.h
+
 /home/pascalr/stickers_writer/src/main.cpp
 SDL.h
 -
@@ -25,6 +27,8 @@ iostream
 -
 vector
 -
+hrcode_constants.h
+/home/pascalr/stickers_writer/src/hrcode_constants.h
 
 /usr/include/SDL2/SDL.h
 SDL_main.h
