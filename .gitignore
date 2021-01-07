@@ -35,5 +35,6 @@ CMakeFiles/*
 *.out
 *.app
 
+out.jpg
 out.bmp
 bin/*

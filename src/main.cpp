@@ -186,10 +186,21 @@ bool init(int screenWidth, int screenHeight) {
   return true;
 }
 
-int main( int argc, char* args[] )
+int main( int argc, const char* argv[] )
 {
-  int windowWidth = mmToPx(HRCODE_STICKER_WIDTH * HRCODE_NB_COLS);
-  int windowHeight = mmToPx(HRCODE_STICKER_WIDTH * HRCODE_NB_ROWS);
+
+  // These variables should be given to the program as parameters.
+  int nb_cols = 1; // HRCODE_NB_COLS
+  int nb_rows = 1; // HRCODE_NB_ROWS
+  int delay = 30;
+  int id = 1;
+
+  if ( argc > 1 ) { // First argument is id
+    id = atoi( argv[1] );
+  }
+
+  int windowWidth = mmToPx(HRCODE_STICKER_WIDTH * nb_cols);
+  int windowHeight = mmToPx(HRCODE_STICKER_WIDTH * nb_rows);
 
   std::vector<Sticker> stickers;
 
@@ -199,9 +210,8 @@ int main( int argc, char* args[] )
 	  SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 	  SDL_RenderClear( gRenderer );
 
-    int id = 1;
-    for (int i = 0; i < HRCODE_NB_COLS; i++) {
-      for (int j = 0; j < HRCODE_NB_ROWS; j++) {
+    for (int i = 0; i < nb_cols; i++) {
+      for (int j = 0; j < nb_rows; j++) {
         int centerX = mmToPx(i * HRCODE_STICKER_WIDTH + (HRCODE_STICKER_WIDTH / 2.0));
         int centerY = mmToPx(j * HRCODE_STICKER_WIDTH + (HRCODE_STICKER_WIDTH / 2.0));
         Sticker sticker(id);
@@ -214,7 +224,7 @@ int main( int argc, char* args[] )
     //Update screen
   	SDL_RenderPresent( gRenderer );
 
-    SDL_Delay( 5000 );
+    SDL_Delay(delay);
 	
     //SDL_Surface* screenSurface = SDL_GetWindowSurface( gWindow );
     //SDL_SaveBMP(screenSurface, OUT_FILE_NAME);
