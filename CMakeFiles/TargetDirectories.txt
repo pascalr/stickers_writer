@@ -1,3 +1,0 @@
-/home/pascalr/stickers_writer/CMakeFiles/rebuild_cache.dir
-/home/pascalr/stickers_writer/CMakeFiles/main.dir
-/home/pascalr/stickers_writer/CMakeFiles/edit_cache.dir
