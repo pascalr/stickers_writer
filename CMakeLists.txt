@@ -14,3 +14,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(main src/main.cpp)
 target_link_libraries(main ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARY})
+
+add_executable(small_sticker src/small_sticker.cpp)
+target_link_libraries(small_sticker ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARY})

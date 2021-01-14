@@ -8,7 +8,7 @@
 #include <iostream>
 #include <vector>
 
-#include "hrcode_constants.h"
+#include "small_hrcode_constants.h"
 
 int mmToPx(double mm, int dpi=HRCODE_DPI) {
   return round(mm*dpi/25.4);
@@ -91,7 +91,7 @@ public:
     // Add black text  
     SDL_Color textColor = { 0, 0, 0 };
   
-    std::stringstream textValue; textValue << std::setfill('0') << std::setw(3) << id;
+    std::stringstream textValue; textValue << std::setfill('0') << std::setw(2) << id;
     textSurface = TTF_RenderText_Solid( gFont, textValue.str().c_str(), textColor );
     if( textSurface == NULL ) {
       printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() ); return;
@@ -121,17 +121,18 @@ public:
   	
     //Render text
     int x = centerX - (width / 2);
-    int y = centerY-mmToPx(HRCODE_MARKERS_DIST_Y_FROM_MIDDLE) - (height / 2) + (HRCODE_FONT_SIZE/16);
+    int y = centerY - (HRCODE_FONT_SIZE/16);
+    //int y = centerY - (height / 2) + (HRCODE_FONT_SIZE/16);
+    //int y = centerY-mmToPx(HRCODE_MARKERS_DIST_Y_FROM_MIDDLE) - (height / 2) + (HRCODE_FONT_SIZE/16);
   	SDL_Rect renderQuad = { x, y, width, height };
   	SDL_RenderCopy( gRenderer, texture, NULL, &renderQuad );
 
-    int textY = y + height + mmToPx(HRCODE_TEXT_LINE_OFFSET);
-
-    // Draw lines
-    //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(8), textY, centerX+mmToPx(8), textY);
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1), centerX+mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1));
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2), centerX+mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2));
-    SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3), centerX+mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3));
+    //int textY = y + height + mmToPx(HRCODE_TEXT_LINE_OFFSET);
+    //// Draw lines
+    ////SDL_RenderDrawLine(gRenderer, centerX-mmToPx(8), textY, centerX+mmToPx(8), textY);
+    //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1), centerX+mmToPx(HRCODE_LINE_1_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*1));
+    //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2), centerX+mmToPx(HRCODE_LINE_2_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*2));
+    //SDL_RenderDrawLine(gRenderer, centerX-mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3), centerX+mmToPx(HRCODE_LINE_3_WIDTH/2.0), textY+mmToPx(HRCODE_LINE_INTERSPACE*3));
     
     //free();
   }

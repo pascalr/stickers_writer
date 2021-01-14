@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named small_sticker
+
+# Build rule for target.
+small_sticker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 small_sticker
+.PHONY : small_sticker
+
+# fast build rule for target.
+small_sticker/fast:
+	$(MAKE) -f CMakeFiles/small_sticker.dir/build.make CMakeFiles/small_sticker.dir/build
+.PHONY : small_sticker/fast
+
+#=============================================================================
 # Target rules for targets named main
 
 # Build rule for target.
@@ -150,6 +163,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/small_sticker.o: src/small_sticker.cpp.o
+
+.PHONY : src/small_sticker.o
+
+# target to build an object file
+src/small_sticker.cpp.o:
+	$(MAKE) -f CMakeFiles/small_sticker.dir/build.make CMakeFiles/small_sticker.dir/src/small_sticker.cpp.o
+.PHONY : src/small_sticker.cpp.o
+
+src/small_sticker.i: src/small_sticker.cpp.i
+
+.PHONY : src/small_sticker.i
+
+# target to preprocess a source file
+src/small_sticker.cpp.i:
+	$(MAKE) -f CMakeFiles/small_sticker.dir/build.make CMakeFiles/small_sticker.dir/src/small_sticker.cpp.i
+.PHONY : src/small_sticker.cpp.i
+
+src/small_sticker.s: src/small_sticker.cpp.s
+
+.PHONY : src/small_sticker.s
+
+# target to generate assembly for a file
+src/small_sticker.cpp.s:
+	$(MAKE) -f CMakeFiles/small_sticker.dir/build.make CMakeFiles/small_sticker.dir/src/small_sticker.cpp.s
+.PHONY : src/small_sticker.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -158,10 +198,14 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... small_sticker"
 	@echo "... main"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/small_sticker.o"
+	@echo "... src/small_sticker.i"
+	@echo "... src/small_sticker.s"
 .PHONY : help
 
 
